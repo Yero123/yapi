@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-React frontend with shadcn/ui components. FastAPI backend with PostgreSQL. Chat assistant built with LangChain, plus LangGraph where tool orchestration needs it, using a MiniMax API token as the LLM provider.
+React frontend with shadcn/ui components. FastAPI backend with PostgreSQL. Chat assistant built with LangChain, plus LangGraph where tool orchestration needs it, using OpenAI as the LLM provider; any OpenAI-compatible provider can be swapped in through configuration.
 
 ## Users
 

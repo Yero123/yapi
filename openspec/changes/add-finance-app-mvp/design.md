@@ -1,6 +1,6 @@
 ## Context
 
-The repository is empty apart from `PRODUCT.md` and this change. The UI was agreed on a clickable mockup (https://claude.ai/artifact/CDsR3vB2AqLWprbohX3vpf): a soft-UI look with a vivid green accent and pastel category colors, light and dark themes. The owner chose the stack: React with shadcn/ui, FastAPI, PostgreSQL, LangChain with LangGraph, and a MiniMax API token for the LLM. The audience is the general public, mostly on phones for capture and on desktop for review.
+The repository is empty apart from `PRODUCT.md` and this change. The UI was agreed on a clickable mockup (https://claude.ai/artifact/CDsR3vB2AqLWprbohX3vpf): a soft-UI look with a vivid green accent and pastel category colors, light and dark themes. The owner chose the stack: React with shadcn/ui, FastAPI, PostgreSQL, LangChain with LangGraph, and OpenAI for the LLM (originally MiniMax). The audience is the general public, mostly on phones for capture and on desktop for review.
 
 ## Goals / Non-Goals
 
@@ -60,7 +60,7 @@ One endpoint returns everything the dashboard shows for a month: budgets with sp
 
 A LangGraph prebuilt ReAct agent with tools: `create_transaction`, `create_category`, `set_category_limit`, `list_categories`, `get_spending_summary`, `list_transactions`. Tools are built per request as closures over the guest id and a DB session, so the model never supplies or chooses a guest.
 
-LLM: `ChatOpenAI` from `langchain-openai` pointed at MiniMax's OpenAI-compatible endpoint, with base URL, model and key from environment variables. Chosen over `langchain_community`'s MiniMax class because tool calling is required. Swapping provider is a configuration change.
+LLM: `ChatOpenAI` from `langchain-openai` against OpenAI (`gpt-4.1-mini`), with base URL, model and key from environment variables, so any OpenAI-compatible provider is a configuration change. MiniMax was the first choice and its endpoint (`https://api.minimax.io/v1`) accepted the key, but the account had no balance, so the default moved to OpenAI.
 
 `POST /api/chat` streams Server-Sent Events: `token` events for text, a `tool_result` event when a tool creates or changes a record, and `done`. The frontend renders tool results as cards and invalidates its dashboard, transactions and categories queries when one arrives. History is stored in `chat_messages` and the last 20 messages are sent to the model.
 
@@ -75,7 +75,7 @@ The assistant panel is a docked right column at wide widths and a full-screen sh
 
 ## Risks / Trade-offs
 
-- [MiniMax's OpenAI-compatible endpoint, model name or tool-calling behaviour differs from what is assumed] → First chat task verifies it against MiniMax's current docs with a real call; provider settings are environment variables, so falling back to another provider needs no code change.
+- [The chosen model handles tool calling poorly or is retired] → Provider settings are environment variables, so changing model or provider needs no code change; the first chat task verifies tool calling with a real call.
 - [The guest id in `localStorage` is lost when the browser is cleared, and the data with it] → Accepted for the no-login version; Google sign-in is the planned fix.
 - [Anyone holding a guest UUID can read that guest's data] → UUIDv4 is unguessable; the id is never placed in a URL.
 - [The model creates a wrong record] → Tools validate inputs through the same services as the forms; every tool result is shown as a card so the user sees what was created and can edit or delete it.
@@ -84,5 +84,5 @@ The assistant panel is a docked right column at wide widths and a full-screen sh
 
 ## Open Questions
 
-- Exact MiniMax base URL and model identifier, to be confirmed in the first chat task.
+- Which OpenAI model to settle on once real conversations have been tried; `gpt-4.1-mini` is the starting default.
 - Whether deleting a category should offer to move its transactions to another category; this version refuses the delete.

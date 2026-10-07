@@ -24,7 +24,7 @@
 
 ## 5. Backend chat assistant
 
-- [ ] 5.1 Confirm MiniMax's OpenAI-compatible base URL, model and tool calling with a real call, and add the LLM settings
+- [x] 5.1 Confirm the LLM provider (OpenAI, `gpt-4.1-mini`) and tool calling with a real call, and add the LLM settings
 - [x] 5.2 Implement the guest-bound tools on top of the services
 - [x] 5.3 Implement the LangGraph agent, the streaming `POST /api/chat` endpoint, history persistence and the history endpoint
 - [x] 5.4 Add a per-guest rate limit and message length cap on chat
@@ -51,5 +51,5 @@
 ## 9. Verification
 
 - [x] 9.1 Run backend tests and typecheck the edited frontend files
-- [ ] 9.2 Run the app end to end: first visit as a guest, add a transaction by form, set a budget, create an expense by chat and see it on the dashboard
+- [x] 9.2 Run the app end to end: first visit as a guest, add a transaction by form, set a budget, create an expense by chat and see it on the dashboard
 - [ ] 9.3 Check light and dark themes and phone width, and fix contrast failures in the pastel colors

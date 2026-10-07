@@ -10,7 +10,7 @@ Yapi does not exist yet beyond an approved UI mockup. People who have never trac
 - Add categories with name, icon, color, type and an optional monthly limit; a category with a limit is a budget.
 - Add expense and income transactions with create, edit, delete and filtered listing.
 - Add a dashboard summary: budget progress, income vs expenses for the last 12 months, spending by category, and recent transactions.
-- Add a chat assistant (LangChain + LangGraph, MiniMax as the LLM) that can create transactions, create or update categories and budgets, and answer questions about the guest's data.
+- Add a chat assistant (LangChain + LangGraph, OpenAI as the LLM) that can create transactions, create or update categories and budgets, and answer questions about the guest's data.
 
 Out of scope: Google sign-in, WhatsApp and Telegram integration, languages other than English, currencies other than USD.
 
@@ -33,5 +33,5 @@ None.
 
 - New code: `frontend/` (React app), `backend/` (FastAPI app, Alembic migrations, tests), `docker-compose.yml` for PostgreSQL.
 - New dependencies: React, Vite, Tailwind, shadcn/ui, TanStack Query, Recharts, lucide-react on the frontend; FastAPI, SQLAlchemy, Alembic, Pydantic, LangChain, LangGraph, langchain-openai on the backend.
-- External service: MiniMax API, requiring a `MINIMAX_API_KEY`.
+- External service: OpenAI API, requiring an `LLM_API_KEY`. Any OpenAI-compatible provider works by changing `LLM_BASE_URL` and `LLM_MODEL`.
 - No existing code or users are affected; the repository is empty.

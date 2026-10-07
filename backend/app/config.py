@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:5173"
 
     llm_api_key: str = ""
-    llm_base_url: str = "https://api.minimax.io/v1"
-    llm_model: str = "MiniMax-M2"
+    llm_base_url: str = "https://api.openai.com/v1"
+    llm_model: str = "gpt-4.1-mini"
 
     # New guests start with example budgets, transactions and one assistant exchange.
     seed_sample_data: bool = True

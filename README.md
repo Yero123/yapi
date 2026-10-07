@@ -33,7 +33,7 @@ flowchart LR
 | `frontend/` | React 19, Vite, TypeScript, Tailwind 4, shadcn/ui, TanStack Query, Recharts |
 | `backend/` | Python 3.11, FastAPI, SQLAlchemy 2, Alembic, LangGraph, pytest |
 | Database | PostgreSQL 16 |
-| LLM | MiniMax by default; any OpenAI-compatible provider through configuration |
+| LLM | OpenAI by default; any OpenAI-compatible provider through configuration |
 
 Routers and assistant tools both call the same service layer, so every rule has one implementation. Amounts are stored as integer cents.
 
@@ -69,8 +69,8 @@ All backend settings are environment variables, read from `backend/.env` in deve
 | `DATABASE_URL` | `postgresql+psycopg://yapi:yapi@localhost:5432/yapi` | SQLAlchemy connection string |
 | `CORS_ORIGINS` | `http://localhost:5173` | Comma-separated allowed origins |
 | `LLM_API_KEY` | empty | Provider key. Without it everything works except the assistant |
-| `LLM_BASE_URL` | `https://api.minimax.io/v1` | OpenAI-compatible endpoint |
-| `LLM_MODEL` | `MiniMax-M2` | Model name |
+| `LLM_BASE_URL` | `https://api.openai.com/v1` | OpenAI-compatible endpoint |
+| `LLM_MODEL` | `gpt-4.1-mini` | Model name; must support tool calling |
 | `SEED_SAMPLE_DATA` | `true` | New guests start with example budgets, a year of transactions and a sample chat |
 | `CHAT_MAX_MESSAGE_CHARS` | `1000` | Longest chat message accepted |
 | `CHAT_RATE_LIMIT_PER_MINUTE` | `20` | Chat messages per guest per minute |
