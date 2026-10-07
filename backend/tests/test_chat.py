@@ -132,3 +132,16 @@ def test_think_filter_drops_reasoning_across_chunks():
     f = ThinkFilter()
     out = "".join(f.feed(chunk) for chunk in ["Hi <thi", "nk>secret plan</th", "ink>there", " <b>ok</b>"])
     assert out == "Hi there <b>ok</b>"
+
+
+def test_chat_runs_several_tool_calls_from_one_turn(client, guest):
+    both = AIMessage(content="", tool_calls=[
+        {"name": "create_transaction", "args": {"kind": "expense", "amount": 8, "category_name": "Food & Dining", "description": "Coffee"}, "id": str(uuid.uuid4())},
+        {"name": "get_spending_summary", "args": {}, "id": str(uuid.uuid4())},
+        {"name": "list_categories", "args": {}, "id": str(uuid.uuid4())},
+    ])
+    use_model(both, AIMessage(content="Added the coffee."))
+
+    stream = events(client.post("/api/chat", headers=guest, json={"message": "I spent 8 on coffee, how is my month?"}))
+
+    assert [e["type"] for e in stream if e["type"] != "token"] == ["tool_result", "done"]

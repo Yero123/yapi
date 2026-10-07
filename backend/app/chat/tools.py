@@ -1,6 +1,7 @@
 """Assistant tools. Each set is bound to one guest and one DB session, so the
 model can never name or choose whose data it touches."""
 
+import threading
 import uuid
 from datetime import date
 
@@ -38,21 +39,28 @@ def build_tools(db: Session, guest_id: uuid.UUID, results: list[dict], today: da
             raise DomainError(f'There is no category called "{name}". Existing categories: {names}.')
         return category
 
+    # The agent runs the tool calls of one model turn in parallel threads, and they share this session.
+    lock = threading.Lock()
+
     def guarded(action):
-        try:
-            return action()
-        except DomainError as error:
-            db.rollback()
-            return f"Could not do that: {error.message}"
+        with lock:
+            try:
+                return action()
+            except DomainError as error:
+                db.rollback()
+                return f"Could not do that: {error.message}"
 
     @tool
     def list_categories() -> str:
         """List the user's categories with their type and monthly limit (budget), if any."""
-        lines = []
-        for c in category_service.list_categories(db, guest_id):
-            limit = f", budget {money(c.monthly_limit_cents)} per month" if c.monthly_limit_cents else ""
-            lines.append(f"- {c.name} ({c.kind}{limit})")
-        return "\n".join(lines) or "The user has no categories."
+        def action():
+            lines = []
+            for c in category_service.list_categories(db, guest_id):
+                limit = f", budget {money(c.monthly_limit_cents)} per month" if c.monthly_limit_cents else ""
+                lines.append(f"- {c.name} ({c.kind}{limit})")
+            return "\n".join(lines) or "The user has no categories."
+
+        return guarded(action)
 
     @tool
     def create_transaction(kind: str, amount: float, category_name: str, description: str = "", on_date: str = "") -> str:
