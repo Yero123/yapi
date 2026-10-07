@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
+from app import ratelimit
 from app.api import chat as chat_api
 from app.config import get_settings
 from app.db import Base, get_db, get_session_factory
@@ -33,6 +34,7 @@ def client(session_factory):
     app.dependency_overrides[get_db] = override_db
     app.dependency_overrides[get_session_factory] = lambda: session_factory
     chat_api._recent.clear()
+    ratelimit.reset()
     yield TestClient(app)
     app.dependency_overrides.clear()
 

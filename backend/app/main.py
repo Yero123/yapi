@@ -1,9 +1,11 @@
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from sqlalchemy import text
 
 from app.api import categories, chat, dashboard, guests, transactions
 from app.config import get_settings
+from app.deps import Db
 from app.errors import DomainError
 
 app = FastAPI(title="Yapi API")
@@ -25,7 +27,11 @@ api = APIRouter(prefix="/api")
 
 
 @api.get("/health")
-def health():
+def health(db: Db):
+    try:
+        db.execute(text("select 1"))
+    except Exception:
+        return JSONResponse(status_code=503, content={"status": "database unreachable"})
     return {"status": "ok"}
 
 

@@ -19,6 +19,7 @@ from app.db import get_session_factory
 from app.deps import CurrentGuest, Db
 from app.errors import DomainError, RateLimited
 from app.models import ChatMessage
+from app.ratelimit import ClientIp, check_ip_limit
 from app.schemas import ChatIn, ChatMessageOut
 
 router = APIRouter(prefix="/chat", tags=["chat"])
@@ -51,6 +52,7 @@ def history(db: Db, guest: CurrentGuest):
 def chat(
     body: ChatIn,
     guest: CurrentGuest,
+    ip: ClientIp,
     model: Annotated[BaseChatModel, Depends(get_chat_model)],
     session_factory: Annotated[sessionmaker[Session], Depends(get_session_factory)],
 ):
@@ -61,6 +63,7 @@ def chat(
     if len(message) > settings.chat_max_message_chars:
         raise DomainError(f"Messages can be up to {settings.chat_max_message_chars} characters.")
     check_rate_limit(guest.id)
+    check_ip_limit("chat", ip, settings.chat_rate_limit_per_hour_per_ip, 3600, "You have reached the hourly message limit. Try again later.")
     guest_id = guest.id
 
     def stream() -> Iterator[str]:

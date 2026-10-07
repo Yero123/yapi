@@ -75,6 +75,9 @@ All backend settings are environment variables, read from `backend/.env` in deve
 | `CHAT_MAX_MESSAGE_CHARS` | `1000` | Longest chat message accepted |
 | `CHAT_RATE_LIMIT_PER_MINUTE` | `20` | Chat messages per guest per minute |
 | `CHAT_HISTORY_WINDOW` | `20` | Past messages sent to the model |
+| `GUEST_RATE_LIMIT_PER_HOUR_PER_IP` | `10` | New guests one address can create per hour |
+| `CHAT_RATE_LIMIT_PER_HOUR_PER_IP` | `60` | Chat messages one address can send per hour, across guests |
+| `SEED_SAMPLE_DATA` | `true` | New guests start with example data |
 
 Never commit a `.env` file. `backend/.env.example` lists the names with safe values.
 
