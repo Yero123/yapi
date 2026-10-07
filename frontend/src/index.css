@@ -1,0 +1,170 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/manrope";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Manrope Variable', system-ui, sans-serif;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-edge: var(--edge);
+  --color-good: var(--good);
+  --color-brand-ink: var(--brand-ink);
+  --color-income: var(--income);
+  --color-expense: var(--expense);
+  --shadow-raise: var(--raise);
+  --shadow-raise-sm: var(--raise-sm);
+  --shadow-inset: var(--inset);
+  --shadow-glow: var(--glow);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.6);
+}
+
+/* Soft UI: the ground and the surfaces share a hue; depth comes from a light
+   and a dark shadow (raise) or their inset pair (pressed, inputs, tracks). */
+:root {
+  --background: #e7ecea;
+  --foreground: #111a15;
+  --card: #f1f5f3;
+  --card-foreground: #111a15;
+  --popover: #f1f5f3;
+  --popover-foreground: #111a15;
+  --primary: #4ff08f;
+  --primary-foreground: #03301a;
+  --secondary: #dde4e1;
+  --secondary-foreground: #37423c;
+  --muted: #dde4e1;
+  --muted-foreground: #5d6a63;
+  --accent: #dde4e1;
+  --accent-foreground: #111a15;
+  --destructive: #c22f2f;
+  --border: #d5dcd9;
+  --input: #d5dcd9;
+  --ring: #0a6b33;
+  --radius: 0.625rem;
+
+  --edge: rgb(255 255 255 / 0.75);
+  --good: #0a6b33;
+  --brand-ink: #0a6b33;
+  --income: #4ff08f;
+  --expense: #ffabab;
+  --raise: 8px 8px 20px rgb(146 162 154 / 0.45), -8px -8px 20px rgb(255 255 255 / 0.9);
+  --raise-sm: 4px 4px 10px rgb(146 162 154 / 0.45), -4px -4px 10px rgb(255 255 255 / 0.9);
+  --inset: inset 3px 3px 6px rgb(146 162 154 / 0.5), inset -3px -3px 6px rgb(255 255 255 / 0.9);
+  --glow: 0 6px 14px rgb(62 203 130 / 0.22);
+
+  --cat-blue: #6f9ad6;
+  --cat-blue-soft: #dde9fa;
+  --cat-peach: #e0946a;
+  --cat-peach-soft: #fde5d6;
+  --cat-mint: #55b58d;
+  --cat-mint-soft: #d6f1e4;
+  --cat-yellow: #d1ab45;
+  --cat-yellow-soft: #fbefc6;
+  --cat-pink: #d886a8;
+  --cat-pink-soft: #fbdfea;
+  --cat-green: #7bb568;
+  --cat-green-soft: #ddf0d5;
+  --cat-lavender: #9186e0;
+  --cat-lavender-soft: #e6e1fa;
+  --cat-coral: #e08783;
+  --cat-coral-soft: #fbdcd9;
+}
+
+.dark {
+  --background: #161b19;
+  --foreground: #f2f6f4;
+  --card: #1c2220;
+  --card-foreground: #f2f6f4;
+  --popover: #1c2220;
+  --popover-foreground: #f2f6f4;
+  --primary: #4ff08f;
+  --primary-foreground: #03301a;
+  --secondary: #252c29;
+  --secondary-foreground: #cdd6d1;
+  --muted: #252c29;
+  --muted-foreground: #98a59e;
+  --accent: #252c29;
+  --accent-foreground: #f2f6f4;
+  --destructive: #f07a7a;
+  --border: #2a322f;
+  --input: #2a322f;
+  --ring: #4ff08f;
+
+  --edge: rgb(255 255 255 / 0.05);
+  --good: #3fe085;
+  --brand-ink: #4ff08f;
+  --raise: 8px 8px 20px rgb(0 0 0 / 0.5), -6px -6px 16px rgb(255 255 255 / 0.035);
+  --raise-sm: 4px 4px 10px rgb(0 0 0 / 0.5), -3px -3px 8px rgb(255 255 255 / 0.04);
+  --inset: inset 3px 3px 7px rgb(0 0 0 / 0.55), inset -3px -3px 6px rgb(255 255 255 / 0.04);
+  --glow: 0 6px 16px rgb(62 203 130 / 0.14);
+
+  --cat-blue: #8fb4ea;
+  --cat-peach: #f0a983;
+  --cat-mint: #7fd4ae;
+  --cat-yellow: #e3c56a;
+  --cat-pink: #eaa0c0;
+  --cat-green: #9fcf8c;
+  --cat-lavender: #b3a8f0;
+  --cat-coral: #f09a95;
+  --cat-blue-soft: color-mix(in srgb, var(--cat-blue) 15%, var(--card));
+  --cat-peach-soft: color-mix(in srgb, var(--cat-peach) 15%, var(--card));
+  --cat-mint-soft: color-mix(in srgb, var(--cat-mint) 15%, var(--card));
+  --cat-yellow-soft: color-mix(in srgb, var(--cat-yellow) 15%, var(--card));
+  --cat-pink-soft: color-mix(in srgb, var(--cat-pink) 15%, var(--card));
+  --cat-green-soft: color-mix(in srgb, var(--cat-green) 15%, var(--card));
+  --cat-lavender-soft: color-mix(in srgb, var(--cat-lavender) 15%, var(--card));
+  --cat-coral-soft: color-mix(in srgb, var(--cat-coral) 15%, var(--card));
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground text-sm antialiased;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  input,
+  textarea {
+    caret-color: var(--brand-ink);
+  }
+}
+
+@utility field {
+  @apply h-10 w-full min-w-0 rounded-lg border border-transparent bg-background px-3 text-base text-foreground shadow-inset outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 aria-invalid:ring-2 aria-invalid:ring-destructive md:text-sm;
+}
+
+@utility surface {
+  @apply rounded-2xl border border-edge bg-card shadow-raise;
+}

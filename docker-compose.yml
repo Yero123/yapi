@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: yapi
+      POSTGRES_PASSWORD: yapi
+      POSTGRES_DB: yapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - yapi_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yapi -d yapi"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  yapi_pgdata:
