@@ -61,7 +61,7 @@ browser ──> Vercel (static frontend)
 
 `backend/Dockerfile`: `python:3.11-slim`, `uv sync --frozen --no-dev` from `uv.lock`, run as a non-root user, start `uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'` with a single worker. Railway builds it with the service root directory set to `backend/`.
 
-`backend/railway.toml` holds the deploy settings so they are versioned: `preDeployCommand = "alembic upgrade head"`, `healthcheckPath = "/api/health"`, restart on failure, one replica.
+The deploy settings live on the Railway service: root directory `/backend`, pre-deploy command `alembic upgrade head`, health check `/api/health`, restart on failure, one replica. They were meant to be versioned in `backend/railway.toml`, but Railway has deprecated that file in favour of `.railway/railway.ts`; moving them there is left for later.
 
 - Why one worker and one replica: the rate limiter is per process. This is recorded in `railway.toml` and the README so it is not raised by accident.
 - Why migrations in the pre-deploy step and not at app start: a failed migration stops the release and leaves the previous version serving.

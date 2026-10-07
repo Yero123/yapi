@@ -14,7 +14,7 @@
 - [x] 2.3 Add an Alembic revision that enables row level security on the four tables, PostgreSQL only
 - [x] 2.4 Resolve the client address from forwarded headers and add per-IP limits on guest creation and chat, with settings and tests
 - [x] 2.5 Add `backend/Dockerfile` and `backend/.dockerignore` (uv, locked install, non-root, single worker, proxy headers) and run the image locally against docker-compose PostgreSQL
-- [x] 2.6 Add `backend/railway.toml` with the pre-deploy migration, health check path, restart policy and one replica
+- [x] 2.6 Configure the Railway service with the pre-deploy migration, health check path, restart policy and one replica (set on the service: Railway deprecated `railway.toml`)
 
 ## 3. Database
 
@@ -29,7 +29,7 @@
 
 ## 5. Frontend on Vercel
 
-- [ ] 5.1 Add `frontend/vercel.json`: rewrite `/api/:path*` to the Railway domain, fall back to `index.html` for client routes
+- [x] 5.1 Add `frontend/vercel.json`: rewrite `/api/:path*` to the Railway domain, fall back to `index.html` for client routes
 - [ ] 5.2 Create the Vercel project from the repo with root directory `frontend/`, framework Vite, production branch `main`
 - [ ] 5.3 Deploy and confirm a deep link reloads correctly and `/api/health` answers through the Vercel origin
 - [ ] 5.4 Send a chat message on the public URL and confirm it streams through the rewrite; if it is buffered or cut, switch the chat call to the Railway origin with CORS
