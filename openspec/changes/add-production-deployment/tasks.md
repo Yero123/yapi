@@ -10,7 +10,7 @@
 ## 2. Backend readiness
 
 - [x] 2.1 Make `GET /api/health` run a trivial query and return a server error when the database is unreachable; test both cases
-- [ ] 2.2 Set explicit pool settings on the engine and confirm the Supabase session pooler string works with `psycopg`
+- [x] 2.2 Set explicit pool settings on the engine and confirm the Supabase session pooler string works with `psycopg`
 - [x] 2.3 Add an Alembic revision that enables row level security on the four tables, PostgreSQL only
 - [x] 2.4 Resolve the client address from forwarded headers and add per-IP limits on guest creation and chat, with settings and tests
 - [x] 2.5 Add `backend/Dockerfile` and `backend/.dockerignore` (uv, locked install, non-root, single worker, proxy headers) and run the image locally against docker-compose PostgreSQL
@@ -18,26 +18,26 @@
 
 ## 3. Database
 
-- [ ] 3.1 Take the session pooler connection string from the Supabase project and store it as `DATABASE_URL` in Railway only
+- [x] 3.1 Take the session pooler connection string from the Supabase project and store it as `DATABASE_URL` in Railway only
 - [ ] 3.2 After the first deploy, confirm the four tables exist with RLS enabled and that Supabase's security advisors report nothing for them
 
 ## 4. Backend on Railway
 
-- [ ] 4.1 Create the Railway project and a service from `Yero123/yapi` with root directory `backend/`, "wait for CI" on, and a generated public domain
-- [ ] 4.2 Set `DATABASE_URL`, `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL` and `CORS_ORIGINS`
-- [ ] 4.3 Deploy and confirm in the logs that migrations ran and `/api/health` answers on the public domain
+- [x] 4.1 Create the Railway project and a service from `Yero123/yapi` with root directory `backend/`, "wait for CI" on, and a generated public domain
+- [x] 4.2 Set `DATABASE_URL`, `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL` and `CORS_ORIGINS`
+- [x] 4.3 Deploy and confirm in the logs that migrations ran and `/api/health` answers on the public domain
 
 ## 5. Frontend on Vercel
 
 - [x] 5.1 Add `frontend/vercel.json`: rewrite `/api/:path*` to the Railway domain, fall back to `index.html` for client routes
-- [ ] 5.2 Create the Vercel project from the repo with root directory `frontend/`, framework Vite, production branch `main`
-- [ ] 5.3 Deploy and confirm a deep link reloads correctly and `/api/health` answers through the Vercel origin
-- [ ] 5.4 Send a chat message on the public URL and confirm it streams through the rewrite; if it is buffered or cut, switch the chat call to the Railway origin with CORS
+- [x] 5.2 Create the Vercel project from the repo with root directory `frontend/`, framework Vite, production branch `main`
+- [x] 5.3 Deploy and confirm a deep link reloads correctly and `/api/health` answers through the Vercel origin
+- [x] 5.4 Send a chat message on the public URL and confirm it streams through the rewrite; if it is buffered or cut, switch the chat call to the Railway origin with CORS
 
 ## 6. Verification
 
 - [ ] 6.1 Set a monthly spend cap on the MiniMax key
-- [ ] 6.2 On the public URL: first visit as a guest, add a transaction, set a budget, create an expense by chat and see it on the dashboard, on a phone and on desktop
+- [x] 6.2 On the public URL: first visit as a guest, add a transaction, set a budget, create an expense by chat and see it on the dashboard, on a phone and on desktop
 - [ ] 6.3 Confirm the per-IP limits trigger from one address and that two networks are counted separately
 - [ ] 6.4 Open a test pull request: CI runs, a Vercel preview is published, and merging deploys both services
-- [ ] 6.5 Add the public URL and the deployment notes to the README
+- [x] 6.5 Add the public URL and the deployment notes to the README

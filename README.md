@@ -5,7 +5,7 @@
 
 Personal finance for people who have never tracked their money. Record expenses and incomes, cap a category with a monthly limit to turn it into a budget, and ask an assistant about your month. No account needed: the first visit creates an anonymous guest.
 
-> **Status:** work in progress. The backend is implemented and tested; the frontend screens are being built. There is no public deployment yet. See [`openspec/changes/`](openspec/changes) for what is planned and what is done.
+> **Live:** https://yapi-finance.vercel.app. Still a work in progress; see [`openspec/changes/`](openspec/changes) for what is planned and what is done.
 
 ## Features
 
@@ -92,7 +92,7 @@ The same commands run in [CI](.github/workflows/ci.yml) on every pull request.
 
 ## Deployment
 
-Planned in [`openspec/changes/add-production-deployment`](openspec/changes/add-production-deployment):
+Live at https://yapi-finance.vercel.app. Details in [`openspec/changes/add-production-deployment`](openspec/changes/add-production-deployment):
 
 | Part | Host | Notes |
 | --- | --- | --- |
@@ -100,7 +100,7 @@ Planned in [`openspec/changes/add-production-deployment`](openspec/changes/add-p
 | Backend | Railway | Container from `backend/Dockerfile`; `alembic upgrade head` runs before each release |
 | Database | Supabase | Plain PostgreSQL through the session pooler; tables closed to the public Data API |
 
-`main` deploys automatically once CI passes. Secrets live only in the host's environment variables.
+`main` deploys automatically on push. Secrets live only in the host's environment variables.
 
 ## Project layout
 
